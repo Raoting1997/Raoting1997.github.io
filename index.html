@@ -439,6 +439,7 @@
 <h4 id="发布和部署"><a href="#发布和部署" class="headerlink" title="发布和部署"></a>发布和部署</h4><p>项目在本地启动成功之后就可以发布和部署了。主要使用的命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add hexo-deployer-git --save //安装自动部署发布工具</span><br><span class="line">$ hexo generator //发布项目，主要是将生成静态文件</span><br><span class="line">$ hexo deploy //部署项目，将该项目部署到 github 上</span><br></pre></td></tr></table></figure></p>
 <p>这些执行成功之后，就可以在浏览器中访问 <a href="http://username.github.io" target="_blank" rel="noopener">http://username.github.io</a> 看到自己的博客啦。但是… 在这个过程中，可能会出现各种报错信息，主要就是缺少依赖之类的，如果是缺少依赖，就按照缺少的依赖安装即可。</p>
 <h4 id="部署时候遇到的坑"><a href="#部署时候遇到的坑" class="headerlink" title="部署时候遇到的坑"></a>部署时候遇到的坑</h4><p>在发布和部署的时候主要会遇到两类坑。<br>一类就是缺少依赖，这种问题解决办法就是按照缺少的依赖一步一步添加。<br>一类就是会出现无法访问的问题：<br>    本地服务不能启动，或者是启动时没有报错但是访问不了，删除 node_modules ，重新 yarn install 安装。<br>    部署之后 github 上面的文件是一些奇怪的字符。将 github 上的项目删除，重新新建项目，重新部署。<br>    部署之后 github 上的文件是正常的，但是不能访问。尝试重新部署一次看是否可以解决。</p>
+<h4 id="后续添加文章"><a href="#后续添加文章" class="headerlink" title="后续添加文章"></a>后续添加文章</h4><p>后续要继续写文章的话，直接新建 .md 文件即可。文章完成之后只需要再一次发布、部署即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
 
           
         
