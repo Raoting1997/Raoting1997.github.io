@@ -229,6 +229,131 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/html2canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="饶婷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="饶婷的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/21/html2canvas/" itemprop="url">在 React 中使用 html2canvas</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-21T15:59:19+08:00">
+                2018-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先安装依赖并引入项目中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add html2canvas --save</span><br><span class="line"></span><br><span class="line">import html2canvas from <span class="string">"html2canvas"</span></span><br></pre></td></tr></table></figure>
+<p>可以打印出来查看 html2canvas，发现它实际上就是一个函数。使用的时候，传入的参数是要截图的部分的父元素，可以通过 document.querySelector() 获取到，函数的返回值是一个 promise 对象，所以截图完成之后的操作（例如更新 state 等）在 callback 中执行即可。具体使用如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">html2canvas(document.querySelector(<span class="string">"#root"</span>)).<span class="keyword">then</span>(canvas =&gt; &#123;</span><br><span class="line">    document.body.appendChild(canvas);</span><br><span class="line">    &lt;!-- 将 canvas 转换为 image --&gt;</span><br><span class="line">    var image = new Image();</span><br><span class="line">    &lt;!--  canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持 </span><br><span class="line">    指定格式 PNG --&gt;</span><br><span class="line">    image.src = canvas.toDataURL(<span class="string">"image/png"</span>);</span><br><span class="line">     &lt;!-- 更新 React 的状态 --&gt;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">        image: image,</span><br><span class="line">        visible: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是，调用 html2canvas 函数的时候，元素应该在脚本之外，而不是你自己加载脚本的地方。</p>
+<p>显示图片，想要使用模态框的形式显示图片可以借助 antd 的 Modal</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Modal &#125; from <span class="string">"antd"</span>;</span><br><span class="line">import <span class="string">"antd/dist/antd.css"</span>;</span><br><span class="line"></span><br><span class="line">&lt;!-- render，图片的 url 使用刚才生成的 url 即可 --&gt;</span><br><span class="line">&lt;Modal</span><br><span class="line">    visible=&#123;this.state.visible&#125;</span><br><span class="line">    onOk=&#123;this.handleOk&#125;</span><br><span class="line">    onCancel=&#123;this.handleCancel&#125;</span><br><span class="line">&gt;</span><br><span class="line">    &lt;img src=&#123;this.state.image.src&#125; width=<span class="string">"310px"</span> /&gt;</span><br><span class="line">&lt;/Modal&gt;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/jsSDK-in-react/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -304,7 +429,7 @@
 <h3 id="引入-SDK"><a href="#引入-SDK" class="headerlink" title="引入 SDK"></a>引入 SDK</h3><p>首先，要先安装 SDK 的依赖，文档中提到的在 js 文件中引入 <a href="http://res.wx.qq.com/open/js/jweixin-1.2.0.js，在" target="_blank" rel="noopener">http://res.wx.qq.com/open/js/jweixin-1.2.0.js，在</a> React 中使用 import 或者 require 中引入的时候会报出如下的错误：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Module not found: Can<span class="string">'t resolve '</span>http://res.wx.qq.com/open/js/jweixin-1.2.0.js<span class="string">' in '</span>/Users/raoting/learn/gallery/src<span class="string">'</span></span><br></pre></td></tr></table></figure>
 <p>（由于知识有限，不知道为什么会找不到，猜想可能是因为用 import 或者 require 引入的时候会到该项目中去找)<br>因此需要通过安装依赖，再引入。需要注意的是，每一个要使用微信 SDK 的页面都要引入该依赖：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add weixin-js-sdk --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ yarn add weixin-js-sdk --save</span><br></pre></td></tr></table></figure>
           
         
       
@@ -654,7 +779,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
